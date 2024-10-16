@@ -29,9 +29,11 @@ steps:
     -v "$(pwd)/temp:/temp" \
     --rm \
     --mount type=bind,source="pathOnPhysicalMachine",target="/temp/" \
-    parasoft/dottest dottestcli -solution "/temp/BankExample.sln" \
+    parasoft/dottest /bin/bash -c " \
+    dottestcli -solution "/temp/BankExample.sln" \
     -config "builtin://Recommended Rules" \
     -settings "/temp/dottestcli.properties" \
+    -import /temp/$(soatest.project); \
     -report "/temp"
     echo -e "\Done."
   displayName: 'Run Static Analysis'
