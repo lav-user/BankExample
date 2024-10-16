@@ -31,10 +31,14 @@ steps:
     docker run --isolation=process \
     -v "$(pwd)/temp:/temp" \
     --rm \
-    --mount \
-    type=bind,source="pathOnPhysicalMachine",target="/tmp/" 
-    parasoft/dottest dottestcli -solution "/tmp/BankExample.sln" 
-    -config "builtin://Recommended Rules" -settings "/tmp/dottestcli.properties" -report "/tmp"
+    --mount type=bind,source="pathOnPhysicalMachine",target="/temp/" \
+    parasoft/dottest /bin/bash -c " \
+    cat /temp/dottestcli.properties; \
+    dottestcli -solution "/temp/BankExample.sln" \
+    -config "builtin://Recommended Rules" \
+    -settings "/temp/dottestcli.properties" \
+    -report "/temp"
+    echo -e "\Done."
   displayName: 'Run Static Analysis'
 - publish: /home/vsts/work/1/s/temp
   artifact: report
