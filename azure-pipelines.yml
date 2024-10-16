@@ -9,7 +9,7 @@ steps:
     
     # Set up
     echo -e "\nSetting Up.\n"
-    mkdir tmp
+    mkdir temp
     echo ${PWD}
     ls -R ${PWD}
     cp -R $(dottest.project) temp/.
