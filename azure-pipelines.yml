@@ -14,8 +14,7 @@ steps:
     ls -R ${PWD}
     cp -R $(dottest.project) temp/.
 
-    docker network create demo-net
-    - script: |
+      - script: |
     
     # Set Up and write .properties file
     echo  -e "\n~~~\nSetting up and creating dottestcli.properties file.\n"
@@ -28,16 +27,15 @@ steps:
     license.network.user=$(license.server.username)
     dottest.license.network.edition=server_compliance_edition
     #dottest.license.custom_edition_features=
-    license.network.enabled=true
-    virtualize.license.network.edition=performance_server_edition
-    virtualize.license.use_network=true" >> temp/dottestcli.properties
+    license.network.enabled=true >> temp/dottestcli.properties
     echo -e "\nDebug -- Verify workspace contents.\n"
     ls -R
     echo -e "\nDebug -- Verify dottestcli.properties file contents."
     cat temp/dottestcli.properties
-    docker run --isolation=process --rm --mount type=bind,source="pathOnPhysicalMachine",target="/tmp/" 
+    docker run --isolation=process -v "$(pwd)/temp:/temp" --rm --mount type=bind,source="pathOnPhysicalMachine",target="/tmp/" 
     parasoft/dottest dottestcli -solution "/tmp/BankExample.sln" 
     -config "builtin://Recommended Rules" -settings "/tmp/dottestcli.properties" -report "/tmp"
+
 - publish: /home/vsts/work/1/s/temp
   artifact: report
 
