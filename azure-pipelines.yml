@@ -28,7 +28,6 @@ steps:
     docker run --isolation=process \
     -v "$(pwd)/temp:/temp" \
     --rm \
-    --mount type=bind,source="pathOnPhysicalMachine",target="/temp/" \
     parasoft/dottest /bin/bash -c " \
     dottestcli -solution "/temp/BankExample.sln" \
     -config "builtin://Recommended Rules" \
