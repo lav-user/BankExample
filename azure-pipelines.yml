@@ -10,6 +10,7 @@ steps:
     echo ${PWD}
     ls -R ${PWD}
     cp -R $(dottest.project) temp/.
+    ls temp/
     # Set Up and write .properties file
     echo  -e "\n~~~\nSetting up and creating dottestcli.properties file.\n"
     echo $"
@@ -29,10 +30,13 @@ steps:
     -v "$(pwd)/temp:/temp" \
     --rm \
     parasoft/dottest /bin/bash -c " \
-    dottestcli -solution "/temp/BankExample.sln" \
-    -config "builtin://Recommended Rules" \
+    dottestcli \
     -settings "/temp/dottestcli.properties" \
     -import /temp/$(dottest.project); \
+    ls
+    dottestcli \
+    -solution "/temp/BankExample.sln" \
+    -config "builtin://Recommended Rules" \
     -report "/temp"
     echo -e "\Done."
   displayName: 'Run Static Analysis'
