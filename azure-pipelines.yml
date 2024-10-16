@@ -28,10 +28,14 @@ steps:
     ls -R
     echo -e "\nDebug -- Verify dottestcli.properties file contents."
     cat temp/dottestcli.properties
-    docker run --isolation=process -v "$(pwd)/temp:/temp" --rm --mount type=bind,source="pathOnPhysicalMachine",target="/tmp/" 
+    docker run --isolation=process \
+    -v "$(pwd)/temp:/temp" \
+    --rm \
+    --mount \
+    type=bind,source="pathOnPhysicalMachine",target="/tmp/" 
     parasoft/dottest dottestcli -solution "/tmp/BankExample.sln" 
     -config "builtin://Recommended Rules" -settings "/tmp/dottestcli.properties" -report "/tmp"
-
+  displayName: 'Run Static Analysis'
 - publish: /home/vsts/work/1/s/temp
   artifact: report
 
