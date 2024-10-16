@@ -30,7 +30,7 @@ steps:
     -v "$(pwd)/temp:/temp" \
     --rm \
     parasoft/dottest /bin/bash -c " \
-    find / -name dottestcli \
+    find -name dottestcli \
     dottestcli \
     -settings "/temp/dottestcli.properties" \
     -import /temp/$(dottest.project); \
