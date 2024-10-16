@@ -6,9 +6,6 @@ pool:
 
 steps:
 - script: |
-    
-    # Set up
-    echo -e "\nSetting Up.\n"
     mkdir temp
     echo ${PWD}
     ls -R ${PWD}
@@ -32,9 +29,7 @@ steps:
     -v "$(pwd)/temp:/temp" \
     --rm \
     --mount type=bind,source="pathOnPhysicalMachine",target="/temp/" \
-    parasoft/dottest /bin/bash -c " \
-    cat /temp/dottestcli.properties; \
-    dottestcli -solution "/temp/BankExample.sln" \
+    parasoft/dottest dottestcli -solution "/temp/BankExample.sln" \
     -config "builtin://Recommended Rules" \
     -settings "/temp/dottestcli.properties" \
     -report "/temp"
