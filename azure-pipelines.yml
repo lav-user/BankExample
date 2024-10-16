@@ -14,8 +14,6 @@ steps:
     ls -R ${PWD}
     cp -R $(dottest.project) temp/.
 
-      - script: |
-    
     # Set Up and write .properties file
     echo  -e "\n~~~\nSetting up and creating dottestcli.properties file.\n"
     echo $"
