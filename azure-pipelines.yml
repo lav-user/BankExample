@@ -33,7 +33,7 @@ steps:
     dottestcli -solution "/temp/BankExample.sln" \
     -config "builtin://Recommended Rules" \
     -settings "/temp/dottestcli.properties" \
-    -import /temp/$(soatest.project); \
+    -import /temp/$(dottest.project); \
     -report "/temp"
     echo -e "\Done."
   displayName: 'Run Static Analysis'
