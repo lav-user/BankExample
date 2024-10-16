@@ -23,7 +23,6 @@ steps:
     license.network.use.specified.server=true
     license.network.user=$(license.server.username)
     dottest.license.network.edition=server_compliance_edition
-    #dottest.license.custom_edition_features=
     license.network.enabled=true >> temp/dottestcli.properties
     echo -e "\nDebug -- Verify workspace contents.\n"
     ls -R
