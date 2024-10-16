@@ -30,6 +30,7 @@ steps:
     -v "$(pwd)/temp:/temp" \
     --rm \
     parasoft/dottest /bin/bash -c " \
+    echo "---inside container"
     ls
     dottestcli \
     -settings "/temp/dottestcli.properties" \
