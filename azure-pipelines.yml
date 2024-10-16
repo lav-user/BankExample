@@ -29,14 +29,8 @@ steps:
     docker run --isolation=process \
     -v "$(pwd)/temp:/temp" \
     --rm \
-    parasoft/dottest /bin/bash -c " \
-    echo "---inside container"
-    ls
-    dottestcli \
+    parasoft/dottest dottestcli \
     -settings "/temp/dottestcli.properties" \
-    -import /temp/$(dottest.project); \
-    ls
-    dottestcli \
     -solution "/temp/BankExample.sln" \
     -config "builtin://Recommended Rules" \
     -report "/temp"
