@@ -32,7 +32,6 @@ steps:
     echo -e "\nDebug -- Verify dottestcli.properties file contents."
     cat temp/dottestcli.properties
     docker run --rm \
-    --isolation=process \
     -v "$(pwd)/temp:/temp" \
     parasoft/dottest \
     dottestcli -settings "/temp/dottestcli.properties" -solution "/temp/BankExample.sln" -config "builtin://Recommended Rules" -report "/temp" \
