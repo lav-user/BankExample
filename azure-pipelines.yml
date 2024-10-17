@@ -20,10 +20,10 @@ steps:
     echo "dottest.license.network.edition=server_compliance_edition" >> temp/dottestcli.properties
     echo "license.network.enabled=true" >> temp/dottestcli.properties
     
-    dir $(System.DefaultWorkingDirectory)
     type temp/dottestcli.properties
-
-    docker run --rm --isolation=process --mount type=bind,source=$(System.DefaultWorkingDirectory)\temp,target=c:/dockerWorkdir parasoft/dottest \
+    cho $(System.DefaultWorkingDirectory)\temp
+    $path = "$(System.DefaultWorkingDirectory)\temp"
+    docker run --rm --isolation=process --mount type=bind,source=$(System.DefaultWorkingDirectory)/temp,target=c:/dockerWorkdir parasoft/dottest \
     C:/parasoft.dottest/dottestcli -solution "C:/dockerWorkdir/BankExample.sln" -config "builtin://Recommended Rules" -settings "C:/dockerWorkdir/dottestcli.properties" -report "c:/dockerWorkdir/reports" \
     echo -e "\Done."
     dir temp/reports
