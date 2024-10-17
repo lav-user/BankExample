@@ -10,19 +10,19 @@ steps:
     echo "copying project to temp directory..."
     cp -R $(dottest.project) temp/.
     
-    echo "
-    parasoft.eula.accepted=true
-    license.network.auth.enabled=true  
-    license.network.password=$(license.server.password)
-    license.network.url=$(license.server.url)
-    license.network.use.specified.server=true
-    license.network.user=$(license.server.username)
-    dottest.license.network.edition=server_compliance_edition
-    license.network.enabled=true" > temp/dottestcli.properties
-    echo -e "\nDebug -- Verify workspace contents.\n"
-   
-    echo -e "\nDebug -- Verify dottestcli.properties file contents."
-   
+    echo "Creating dottestcli.properties file..."
+    echo "parasoft.eula.accepted=true" > temp/dottestcli.properties
+    echo "license.network.auth.enabled=true" >> temp/dottestcli.properties
+    echo "license.network.password=$(license.server.password)" >> temp/dottestcli.properties
+    echo "license.network.url=$(license.server.url)" >> temp/dottestcli.properties
+    echo "license.network.use.specified.server=true" >> temp/dottestcli.properties
+    echo "license.network.user=$(license.server.username)" >> temp/dottestcli.properties
+    echo "dottest.license.network.edition=server_compliance_edition" >> temp/dottestcli.properties
+    echo "license.network.enabled=true" >> temp/dottestcli.properties
+    
+    dir $(System.DefaultWorkingDirectory)
+    type temp/dottestcli.properties
+
     docker run --rm --isolation=process --mount type=bind,source=$(System.DefaultWorkingDirectory)\temp,target=c:/dockerWorkdir parasoft/dottest \
     dottestcli -solution "C:/dockerWorkdir/BankExample.sln" -config "builtin://Recommended Rules" -settings "C:/dockerWorkdir/dottestcli.properties" -report "c:/dockerWorkdir/reports" \
     echo -e "\Done."
