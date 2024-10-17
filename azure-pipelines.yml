@@ -24,7 +24,7 @@ steps:
     type temp/dottestcli.properties
 
     docker run --rm --isolation=process --mount type=bind,source=$(System.DefaultWorkingDirectory)\temp,target=c:/dockerWorkdir parasoft/dottest \
-    dottestcli -solution "C:/dockerWorkdir/BankExample.sln" -config "builtin://Recommended Rules" -settings "C:/dockerWorkdir/dottestcli.properties" -report "c:/dockerWorkdir/reports" \
+    C:/parasoft.dottest/dottestcli -solution "C:/dockerWorkdir/BankExample.sln" -config "builtin://Recommended Rules" -settings "C:/dockerWorkdir/dottestcli.properties" -report "c:/dockerWorkdir/reports" \
     echo -e "\Done."
     dir temp/reports
   displayName: 'Run Static Analysis'
