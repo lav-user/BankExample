@@ -8,17 +8,17 @@ steps:
 - script: |
     mkdir temp
     echo "current working directory: ${pwd}"
-    ls -R ${PWD}
+    dir /s
 
     echo "copying project to temp directory..."
-    cp -R $(dottest.project) temp/.
+    xcopy /s /e $(dottest.project) temp\
     
     echo "verifying project files in temp:"
-    ls -R temp/
+    dir temp\
 
     # Set Up and write .properties file
     echo  -e "\n~~~\nSetting up and creating dottestcli.properties file.\n"
-    echo $"
+    echo "
     parasoft.eula.accepted=true
     license.network.auth.enabled=true  
     license.network.password=$(license.server.password)
@@ -26,16 +26,17 @@ steps:
     license.network.use.specified.server=true
     license.network.user=$(license.server.username)
     dottest.license.network.edition=server_compliance_edition
-    license.network.enabled=true" >> temp/dottestcli.properties
+    license.network.enabled=true" > temp\dottestcli.properties
     echo -e "\nDebug -- Verify workspace contents.\n"
     ls -R
     echo -e "\nDebug -- Verify dottestcli.properties file contents."
-    cat temp/dottestcli.properties
+    type temp\dottestcli.properties
     docker run --rm \
-    -v "$(pwd)/temp:/temp" \
+    -v "$(System.DefaultWorkingDirectory)\temp:C:\temp" \
     parasoft/dottest \
-    dottestcli -settings "/temp/dottestcli.properties" -solution "/temp/BankExample.sln" -config "builtin://Recommended Rules" -report "/temp" \
+    dottestcli -settings "C:\temp\dottestcli.properties" -solution "C:\temp\BankExample.sln" -config "builtin://Recommended Rules" -report "C:\temp" \
     echo -e "\Done."
+    dir temp\
   displayName: 'Run Static Analysis'
 - publish: /home/vsts/work/1/s/temp
   artifact: report
